@@ -20,7 +20,6 @@ public class fieldOfView : MonoBehaviour
         //creates mesh
         mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mesh;
-        origin = Vector3.zero;
         degreesOfVision = 75f;
     }
     private void LateUpdate()
@@ -30,6 +29,7 @@ public class fieldOfView : MonoBehaviour
         float angle = startingAngle;
         float anglesPerRay = degreesOfVision / numOfRays;
         float viewDistance = 5f;
+        
         origin = Square.transform.position;
 
         //creates attribute arrays for the vision
@@ -41,16 +41,19 @@ public class fieldOfView : MonoBehaviour
         vertices[0] = origin;
         int whichVertex = 1;
         int whichTriangle = 0;
+
         Vector3 mousePosition = Input.mousePosition;
         mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
-        float x = Mathf.Atan2(mousePosition.x + Square.transform.position.x, mousePosition.y+Square.transform.position.x) * Mathf.Rad2Deg;
- 
-        if (x < 0)
-        {
-            x += 360;
-        }
-        startingAngle = -(x - degreesOfVision/2 - 90);
-        transform.position = Square.transform.position + offset;
+
+        float x = Mathf.Atan2(Mathf.Abs(mousePosition.y)-Mathf.Abs(Square.transform.position.x), Mathf.Abs(mousePosition.x) - Mathf.Abs(Square.transform.position.x)) * Mathf.Rad2Deg;
+
+        Debug.Log(mousePosition.y + "hi");
+        Debug.Log(Square.transform.position.y);
+
+        startingAngle = x+degreesOfVision/2;
+
+
+
         for (int i = 0; i <= numOfRays; i++)
         {
             Vector3 vertex;
