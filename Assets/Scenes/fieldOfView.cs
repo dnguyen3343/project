@@ -7,7 +7,7 @@ public class fieldOfView : MonoBehaviour
 {
     [SerializeField] private LayerMask layerMask;
     public GameObject Square;
-    private Vector3 offset = new Vector3(0, 0, 10);
+    private Vector3 offset = new Vector3(0, 0, 5);
     private Mesh mesh;
     private float startingAngle;
     private float degreesOfVision;
@@ -36,7 +36,7 @@ public class fieldOfView : MonoBehaviour
         int[] triangles = new int[numOfRays * 3];
 
         //creates the first instnace of the ray
-        vertices[0] = Square.transform.position;
+        vertices[0] = Square.transform.position + offset;
         int whichVertex = 1;
         int whichTriangle = 0;
 
@@ -45,7 +45,6 @@ public class fieldOfView : MonoBehaviour
 
         float x = Mathf.Atan2(Mathf.Abs(mousePosition.y-Square.transform.position.y), Mathf.Abs(mousePosition.x - Square.transform.position.x)) * Mathf.Rad2Deg;
 
-        Debug.Log(x+"hi");
         if (mousePosition.x >= Square.transform.position.x)
         {
             if (mousePosition.y >= Square.transform.position.y)
@@ -68,7 +67,6 @@ public class fieldOfView : MonoBehaviour
                 x = x + 180;
             }
         }
-        Debug.Log(x);
 
 
 
